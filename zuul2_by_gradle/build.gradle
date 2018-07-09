@@ -1,0 +1,54 @@
+plugins {
+    id 'groovy'
+    id 'java'
+    id "com.google.osdetector" version "1.4.0"
+}
+
+group 'com.imet'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'application'
+apply plugin: 'com.google.osdetector'
+
+mainClassName = "com.netflix.zuul.sample.Bootstrap"
+
+sourceSets {
+    main {
+
+        groovy {
+            srcDirs = [ 'src/main/groovy' ]
+        }
+
+        java {
+            srcDirs = ['src/main/java'] // don't compile Java code twice
+        }
+
+    }
+}
+
+jar {
+    from sourceSets.main.allGroovy
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    ext.versions_guice = "4.0"
+    compile 'org.codehaus.groovy:groovy-all:2.4.4'
+    compile(group: 'com.google.inject', name: 'guice', version: "${versions_guice}")
+    compile(group: 'com.google.inject.extensions', name: 'guice-multibindings', version: "${versions_guice}")
+    compile(group: 'com.google.inject.extensions', name: 'guice-grapher', version: "${versions_guice}")
+    compile(group: 'com.google.inject.extensions', name: 'guice-assistedinject', version: "${versions_guice}")
+    compile(group: 'com.google.inject.extensions', name: 'guice-servlet', version: "${versions_guice}")
+    compile(group: 'com.google.inject.extensions', name: 'guice-throwingproviders', version: "${versions_guice}")
+
+    compile "com.netflix.zuul:zuul-core:2.1.2"
+    
+}

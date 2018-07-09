@@ -37,6 +37,13 @@ cd linkerd
 java -jar linkerd-1.3.4.jar linkerd.yaml
 ```
 
+## Terminal 5 (zuul2)
+```bash
+cd zuul2_by_gradle
+./gradlew run
+```
+
+
 ## Terminal N (wrk)
 
 ### install `wrk`
@@ -71,6 +78,13 @@ Running 30s test @ http://localhost:8081/hello.txt
   625781 requests in 30.09s, 123.05MB read
 Requests/sec:  20800.13
 Transfer/sec:      4.09MB
+```
+
+### zuul2 bench (9090)
+```bash
+~% wrk -t 10 -c 200 -d 30s http://localhost:9090/hello.txt
+Running 30s test @ http://localhost:9090/hello.txt
+  10 threads and 200 connections
 ```
 
 ### linkerd bench (4140)
